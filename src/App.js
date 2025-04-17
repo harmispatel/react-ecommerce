@@ -1,7 +1,7 @@
 import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import ProtectedRoute from "./protected/ProtectedRoute";
 import Register from "./pages/Register";
@@ -10,6 +10,7 @@ import TaskList from "./pages/TaskList";
 import Navbar from "./components/Navbar";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
+import PublicRoute from "./protected/PublicRoute";
 
 const App = () => {
   const location = useLocation();
@@ -20,8 +21,23 @@ const App = () => {
       <Toaster toastOptions={{ duration: 2000 }} />
       {!shouldHideNavbar && <Navbar />}
       <Routes>
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
         <Route
           path="/task-list"
           element={
@@ -46,7 +62,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="*" element={<Login />} />
+        <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </>
   );
