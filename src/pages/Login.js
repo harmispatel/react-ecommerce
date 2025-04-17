@@ -9,7 +9,6 @@ import {
   FormGroup,
   Label,
   Input,
-  FormFeedback,
   Card,
   CardBody,
   CardTitle,
@@ -88,7 +87,11 @@ const Login = () => {
                       <FaEnvelope />
                     </InputGroupText>
                   </InputGroup>
-                  <ErrorMessage name="email" component={FormFeedback} />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-danger mt-1"
+                  />
                 </FormGroup>
 
                 <FormGroup>
@@ -107,7 +110,11 @@ const Login = () => {
                       {showPassword ? <FaEyeSlash /> : <FaEye />}
                     </InputGroupText>
                   </InputGroup>
-                  <ErrorMessage name="password" component={FormFeedback} />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-danger mt-1"
+                  />
                 </FormGroup>
 
                 <Button type="submit" color="primary" className="w-100">

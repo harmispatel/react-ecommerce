@@ -1,7 +1,7 @@
 import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Login from "./pages/Login";
 import ProtectedRoute from "./protected/ProtectedRoute";
 import Register from "./pages/Register";
@@ -12,10 +12,13 @@ import Product from "./pages/Product";
 import Cart from "./pages/Cart";
 
 const App = () => {
+  const location = useLocation();
+  const hideNavbarRoutes = ["/", "/register", "/login"];
+  const shouldHideNavbar = hideNavbarRoutes.includes(location.pathname);
   return (
     <>
       <Toaster toastOptions={{ duration: 2000 }} />
-      <Navbar />
+      {!shouldHideNavbar && <Navbar />}
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
